@@ -1,0 +1,115 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+
+    <script>
+      $(function(){
+
+
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/svg");
+
+
+
+        var images = document.querySelectorAll('.img');
+        var length = images.length;
+        for(var i=0; i< length; i++){
+          var clone = images[i].cloneNode();
+          clone.className = "img-clone"
+          images[i].parentNode.appendChild(clone);
+        }
+
+        var apply = function(){
+          var txt = editor.getSession().getValue();
+          console.log(txt)
+          var dummy  = $('<svg id="dummy" style="display:none"><defs><filter id="f1" x="0" y="0" width="100%" height="100%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">' + txt + '</filter></defs></svg>');
+          $("body").append(dummy);
+          $('#svgfilters').find('defs').remove();
+          $('#svgfilters').append($("#dummy defs"));
+          dummy.remove();
+
+          $('.img-clone').css('filter','');
+          $('.img-clone').css('-webkit-filter','');
+          $('.img-clone').css('-moz-filter','');
+
+          setTimeout(function(){
+            $('.img-clone').css('filter','url(#f1)');
+            $('.img-clone').css('-webkit-filter','url(#f1)');
+            $('.img-clone').css('-moz-filter','url(#f1)');
+          },100);
+
+          window.location.href = window.location.href.split('#')[0] + '#' + escape(editor.getSession().getValue());
+        }
+
+
+        editor.getSession().on('change', function(){
+          apply();
+        })
+
+
+        editor.getSession().setValue(unescape(window.location.href.split('#')[1]));
+        setTimeout(apply,100);
+        setTimeout(apply,3000);
+        setTimeout(apply,6000);
+      });
+    </script>
+</head>
+<body>
+    <style>
+        .set{
+            width: 700px;
+        }
+        img{
+            width: 320px;
+            border: 2px solid white;
+        }
+        .testimgs{
+            position: absolute;
+            left: 700px;
+        }
+        #editor{
+            height: 1000px;
+            width: 680px;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+    </style>
+    <div id="editor"></div>
+    <!== ============================================================= ==>
+    <svg id="svgfilters" style="display: none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" stroke="blue" fill="green" >
+        <defs>
+
+        </defs>
+    </svg>
+    <!== ============================================================= ==>
+
+    <div class="testimgs">
+        <div class="set"><img class="img" src="http://img1.lesnumeriques.com/produits/36/4904/X360_webcam_face.jpg"></div>
+        <div class="set"><img class="img" src="http://img1.lesnumeriques.com/produits/98/4567/Xi-3650_webcam_face.jpg"></div>
+        <div class="set"><img class="img" src="http://img1.lesnumeriques.com/produits/150/4010/1000h_webcam_face.JPG"></div>
+        <div class="set"><img class="img" src="http://i.imgur.com/PbpyH.jpg"></div>
+        <div class="set"><img class="img" src="http://b.vimeocdn.com/ts/211/205/211205970_640.jpg"></div>
+        <div class="set"><img class="img" src="http://onesmallwindow.com/wp-content/uploads/2011/11/t_ss_webcam.jpg"></div>
+        <div class="set"><img class="img" src="http://www.artifacting.com/blog/wp-content/uploads/2009/04/105054.jpg"></div>
+        <div class="set"><img class="img" src="http://cdn.buzznet.com/assets/users16/lovehannahlee/default/dk-brown-red-hair-extensions--large-msg-122382778271.jpg"></div>
+        <div class="set"><img class="img" src="http://4.bp.blogspot.com/-We73KOAuQ6I/TtyjfXZMDHI/AAAAAAAAAwg/jVKy44XYgys/s1600/111205-045202.jpg"></div>
+        <div class="set"><img class="img" src="http://images5.fanpop.com/image/photos/30100000/Harry-one-direction-30183798-1280-1024.jpg"></div>
+        <div class="set"><img class="img" src="http://images.musictimes.com/data/tag/tag_1373375933.jpg"></div>
+        <div class="set"><img class="img" src="http://images6.fanpop.com/image/photos/32700000/Zyan-Malik-Teen-Vogue-2012-one-direction-32715958-1499-1600.jpg"></div>
+        <div class="set"><img class="img" src="http://www.ryanseacrest.com/wp-content/uploads/2012/11/Miley-Talks-One-Direction.jpg"></div>
+        <div class="set"><img class="img" src="http://i.imgur.com/Wu42u.jpg"></div>
+        <div class="set"><img class="img" src="http://files.sharenator.com/man_boobs-s414x480-180595.jpg"></div>
+        <div class="set"><img class="img" src="http://img.ehowcdn.com/article-new-thumbnail/ehow/images/a07/8a/dk/lose-man-boobs-weeks-800x800.jpg"></div>
+        <div class="set"><img class="img" src="http://www.peachparts.com/shopforum/attachments/open-discussion/15376d1075948399-american-boobs-charms.jpg"></div>
+        <div class="set"><img class="img" src="http://1.bp.blogspot.com/_1_ftBSZtdyo/TL--1BCTn9I/AAAAAAAAA7I/4ktpVJXAz_c/s320/scarlett.jpg"></div>
+        <div class="set"><img class="img" src="http://topnews.in/health/files/junk-food.jpg"></div>
+        <div class="set"><img class="img" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQeT6LD8ZlKj6MxwGML_vyGV9_JIKO-2Ih9gQYYWjQpQJ3JjEumQA"></div>
+        <div class="set"><img class="img" src="http://innstyleblog.s3.amazonaws.com/wp-content/uploads/2013/06/tumblr_mlig6chTi81qdm5oto1_1280.jpg"></div>
+    </div>
+    <script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
